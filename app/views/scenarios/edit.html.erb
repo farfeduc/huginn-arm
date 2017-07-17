@@ -1,0 +1,23 @@
+<% content_for :title, "Edit " + @scenario.name -%>
+
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class="page-header">
+        <h2>
+          Edit Scenario
+        </h2>
+      </div>
+
+      <%= render 'form' %>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-md-12">
+          <%= link_to icon_tag('glyphicon-chevron-left') + ' Back'.html_safe, scenarios_path, class: "btn btn-default" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

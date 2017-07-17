@@ -1,0 +1,54 @@
+<% content_for :title, "Services" -%>
+
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class="page-header">
+        <h2>
+          Your Services
+        </h2>
+      </div>
+      <p>
+        Before you can authenticate with a service, you need to set it up. Have a look at the Huginn
+        <%= link_to 'wiki', 'https://github.com/cantino/huginn/wiki/Configuring-OAuth-applications', target: :_blank %>
+        for guidance.
+      </p>
+      <%- Devise.omniauth_providers.each { |provider| -%>
+        <p><%= omniauth_button(provider) %></p>
+      <%- } -%>
+      <hr>
+
+      <div class='table-responsive'>
+        <table class='table table-striped events'>
+          <tr>
+            <th><%= sortable_column 'provider', 'asc' %></th>
+            <th><%= sortable_column 'name', 'asc' %></th>
+            <th><%= sortable_column 'global', name: 'Global?' %></th>
+            <th></th>
+          </tr>
+
+        <% @services.each do |service| %>
+          <tr>
+            <td><%= omniauth_provider_name(service.provider) %></td>
+            <td><%= service.name %></td>
+            <td><%= yes_no(service.global) %></td>
+            <td>
+              <div class="btn-group btn-group-xs">
+                <% if service.global %>
+                  <%= link_to 'Make private', toggle_availability_service_path(service), method: :post, data: { confirm: 'Are you sure you want to remove access to your data on this service for other users?'}, class: "btn btn-default" %>
+                <% else %>
+                   <%= link_to 'Make global', toggle_availability_service_path(service), method: :post, data: { confirm: 'Are you sure you want to grant every user on this system access to your data on this service?'}, class: "btn btn-default" %>
+                <% end %>
+                <%= link_to 'Delete', service_path(service), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-danger" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </table>
+      </div>
+
+      <%= paginate @services, :theme => 'twitter-bootstrap-3' %>
+    </div>
+  </div>
+</div>
+

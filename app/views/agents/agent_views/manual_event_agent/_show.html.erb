@@ -1,0 +1,58 @@
+<p>
+  Use this form to manually emit Events from this Agent (usually for testing).
+</p>
+
+<p>
+  If you add a top-level key called <code>payloads</code> that points to an array of objects, they will be emitted as a series
+  of Events.  Otherwise, everything entered will be emitted as a single Event.
+</p>
+
+<p>
+  Liquid formatting is supported.
+</p>
+
+<h4 id='event-creation-status'></h4>
+
+<%= form_tag handle_details_post_agent_path(@agent), :id => "create-event-form" do %>
+  <div class="form-group">
+    <textarea rows="10" id="payload" name="payload" class="payload-editor" data-height="200">
+      {}
+    </textarea>
+  </div>
+
+  <%= submit_tag "Submit", :class => "btn btn-primary" %>
+<% end %>
+
+<script>
+  $(function () {
+    var payloadJsonEditor = window.setupJsonEditor($(".payload-editor"))[0];
+    $("#create-event-form").submit(function (e) {
+      e.preventDefault();
+      var $form = $("#create-event-form");
+      var $status = $("#event-creation-status");
+      try{
+        JSON.parse($form.find("textarea").val());
+      }
+      catch(err){
+        alert ('Sorry, there appears to be an error in your JSON input. Please fix it before continuing.');
+        return false;
+      }
+      $.ajax({
+        url: $form.attr('action'),
+        method: "post",
+        data: { payload: $form.find("textarea").val() },
+        dataType: "JSON",
+        success: function(json) {
+          if (json.success) {
+            $status.text("Success!");
+          } else {
+            $status.text("An error occurred: " + json.error);
+          }
+        },
+        error: function(response) {
+          $status.text("An error occurred: " + response.responseText)
+        }
+      });
+    });
+  });
+</script>

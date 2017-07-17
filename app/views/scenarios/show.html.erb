@@ -1,0 +1,36 @@
+<% content_for :title, @scenario.name -%>
+
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class="page-header">
+        <h2><%= scenario_label(@scenario) %> <%= "Public" if @scenario.public? %> Scenario</h2>
+
+      </div>
+
+      <% if @scenario.description.present? %>
+        <blockquote><%= markdown(@scenario.description) %></blockquote>
+      <% end %>
+
+      <%= render 'agents/table', :return_to => scenario_path(@scenario) %>
+
+      <br/>
+
+      <div class="btn-group">
+        <%= link_to icon_tag('glyphicon-chevron-left') + ' Back', scenarios_path, class: "btn btn-default" %>
+        <%= link_to icon_tag('glyphicon-plus') + ' New Agent', new_agent_path(scenario_id: @scenario.id, return: request.path), class: "btn btn-default" %>
+        <%= link_to icon_tag('glyphicon-random') + ' View Diagram', scenario_diagram_path(@scenario), class: "btn btn-default" %>
+        <%= link_to icon_tag('glyphicon-edit') + ' Edit', edit_scenario_path(@scenario), class: "btn btn-default" %>
+        <% if @scenario.source_url.present? %>
+          <%= link_to icon_tag('glyphicon-refresh') + ' Update', new_scenario_imports_path(url: @scenario.source_url), class: "btn btn-default" %>
+        <% end %>
+        <%= link_to icon_tag('glyphicon-share-alt') + ' Share', share_scenario_path(@scenario), class: "btn btn-default" %>
+        <%= link_to icon_tag('glyphicon-trash') + ' Delete', '#', data: { toggle: 'modal', target: "#confirm-scenario-deletion-#{@scenario.id}"}, class: "btn btn-default" %>
+        <%= link_to icon_tag('glyphicon-play') + 'Enable all Agents', '#', data: { toggle: 'modal', target: "#enable-disable-agents"}, class: "btn btn-default", id: "enable-all" %>
+        <%= link_to icon_tag('glyphicon-pause') + 'Disable all Agents', '#', data: { toggle: 'modal', target: "#enable-disable-agents"}, class: "btn btn-default", id: "disable-all" %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render 'scenarios/confirm_deletion_modal', scenario: @scenario %>
+<%= render 'scenarios/enable_agents_modal', scenario: @scenario %>

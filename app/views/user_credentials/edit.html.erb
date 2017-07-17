@@ -1,0 +1,23 @@
+<% content_for :title, @user_credential.credential_name -%>
+
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class="page-header">
+        <h2>
+          Editing your Credential
+        </h2>
+      </div>
+
+      <%= render 'form' %>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-md-12">
+          <%= link_to icon_tag('glyphicon-chevron-left') + ' Back'.html_safe, user_credentials_path, class: "btn btn-default" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

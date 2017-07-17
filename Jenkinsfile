@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'armhf/alpine:edge'
+      image 'farfeduc/armbuilds'
     }
     
   }

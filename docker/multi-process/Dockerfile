@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM armhf/ubuntu:14.04
 
 ADD docker/scripts/prepare /scripts/prepare
 RUN /scripts/prepare

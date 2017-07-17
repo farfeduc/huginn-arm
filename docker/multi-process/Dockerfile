@@ -4,7 +4,7 @@ ADD docker/scripts/prepare /scripts/prepare
 RUN chmod +x /scripts/prepare && sh /scripts/prepare
 
 ADD docker/multi-process/scripts/standalone-packages /scripts/standalone-packages
-RUN /scripts/standalone-packages
+RUN chmod +x /scripts/prepare && sh /scripts/standalone-packages
 
 WORKDIR /app
 
@@ -22,7 +22,7 @@ ENV OUTDATED_DOCKER_IMAGE_NAMESPACE ${OUTDATED_DOCKER_IMAGE_NAMESPACE}
 
 ADD ["docker/scripts/setup", "docker/scripts/setup_env", "docker/multi-process/scripts/init", "/scripts/"]
 
-RUN /scripts/setup
+RUN chmod +x /scripts/prepare && sh /scripts/setup
 
 VOLUME /var/lib/mysql
 

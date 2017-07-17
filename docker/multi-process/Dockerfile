@@ -1,7 +1,7 @@
 FROM armhf/ubuntu:14.04
 
 ADD docker/scripts/prepare /scripts/prepare
-RUN /scripts/prepare
+RUN chmod +x /scripts/prepare && sh /scripts/prepare
 
 ADD docker/multi-process/scripts/standalone-packages /scripts/standalone-packages
 RUN /scripts/standalone-packages

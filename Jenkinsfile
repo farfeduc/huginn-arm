@@ -1,5 +1,10 @@
 pipeline {
-  agent none
+  agent {
+    docker {
+      image 'armhf/alpine:edge'
+    }
+    
+  }
   stages {
     stage('error') {
       steps {

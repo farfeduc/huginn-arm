@@ -1,4 +1,4 @@
-huginn-arm {
+huginn {
     def app
 
     stage('Clone repository') {

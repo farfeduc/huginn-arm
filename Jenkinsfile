@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'farfeduc/armbuilds'
+      image 'docker-agent'
     }
     
   }

@@ -1,4 +1,4 @@
-FROM armhf/ubuntu:14.04
+FROM armhf/ubuntu
 
 ADD docker/scripts/prepare /scripts/prepare
 RUN chmod +x /scripts/prepare && sh /scripts/prepare
